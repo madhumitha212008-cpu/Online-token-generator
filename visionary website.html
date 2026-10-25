@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>KGF Civil Hospital</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f4f9ff;
+}
+
+header {
+    background-color: #0077b6;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+nav {
+    background-color: #023e8a;
+    padding: 10px;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    margin: 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+section {
+    padding: 20px;
+    margin: 12px;
+    background-color: white;
+    border-radius: 8px;
+}
+
+h2 {
+    color: #0077b6;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+}
+
+.box {
+    background-color: #e3f2fd;
+    padding: 15px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.icon {
+    font-size: 42px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+form input, form select, form button {
+    width: 100%;
+    padding: 10px;
+    margin: 6px 0;
+}
+
+form button {
+    background-color: #0077b6;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#tokenDisplay {
+    margin-top: 15px;
+    padding: 15px;
+    border-radius: 6px;
+    background-color: #e8f5e9;
+    font-weight: bold;
+    color: #1b5e20;
+}
+
+footer {
+    background-color: #023e8a;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🏥 KGF Civil Hospital</h1>
+<p>Government Public Hospital – 24×7 Emergency Services 🚑</p>
+</header>
+
+<nav>
+<a href="#facilities">Facilities</a>
+<a href="#doctors">Doctors</a>
+<a href="#schemes">Health Schemes</a>
+<a href="#appointment">Appointment</a>
+<a href="#contact">Contact</a>
+</nav>
+
+<!-- Medical Facilities -->
+<section id="facilities">
+<h2>Medical Facilities</h2>
+<div class="grid">
+<div class="box"><span class="icon">🚑</span>24×7 Emergency & Ambulance</div>
+<div class="box"><span class="icon">🧪</span>Laboratory & Diagnostics</div>
+<div class="box"><span class="icon">💊</span>Free Government Pharmacy</div>
+<div class="box"><span class="icon">🩺</span>OPD Consultation</div>
+<div class="box"><span class="icon">🛏️</span>In-Patient (IPD) Services</div>
+<div class="box"><span class="icon">❤️</span>Mother & Child Care</div>
+</div>
+</section>
+
+<!-- Doctors Details -->
+<section id="doctors">
+<h2>Doctors Available</h2>
+<div class="grid">
+
+<div class="box">
+<span class="icon">👩‍⚕️</span>
+<strong>Dr. Parimala</strong><br>
+Pediatrician<br>
+OPD Time: 9:00 AM – 1:00 PM
+</div>
+
+<div class="box">
+<span class="icon">👩‍⚕️</span>
+<strong>Dr. Ravani</strong><br>
+Pediatrician<br>
+OPD Time: 10:00 AM – 2:00 PM
+</div>
+
+<div class="box">
+<span class="icon">👩‍⚕️</span>
+<strong>Dr. Kavitha</strong><br>
+Gynaecologist<br>
+OPD Time: 11:00 AM – 3:00 PM
+</div>
+
+<div class="box">
+<span class="icon">👩‍⚕️</span>
+<strong>Dr. Radha</strong><br>
+Dermatologist<br>
+OPD Time: 12:00 PM – 4:00 PM
+</div>
+
+</div>
+</section>
+
+<!-- Health Schemes -->
+<section id="schemes">
+<h2>Government Health Schemes</h2>
+<div class="grid">
+<div class="box"><span class="icon">🪪</span>Ayushman Bharat – PMJAY</div>
+<div class="box"><span class="icon">🏥</span>Karnataka Arogya Bhagya</div>
+<div class="box"><span class="icon">👶</span>Janani Suraksha Yojana</div>
+<div class="box"><span class="icon">💉</span>Free Vaccination Programs</div>
+</div>
+</section>
+
+<!-- Appointment & Token -->
+<section id="appointment">
+<h2>Book Appointment</h2>
+
+<form onsubmit="generateToken(); return false;">
+<input type="text" id="patientName" placeholder="Patient Name" required>
+<input type="number" placeholder="Age" required>
+
+<select id="doctor" required>
+<option value="">Select Doctor</option>
+<option>Dr. Parimala – Pediatrician</option>
+<option>Dr. Ravani – Pediatrician</option>
+<option>Dr. Kavitha – Gynaecologist</option>
+<option>Dr. Radha – Dermatologist</option>
+</select>
+
+<input type="date" id="appointmentDate" required>
+<button type="submit">Generate Token</button>
+</form>
+
+<div id="tokenDisplay"></div>
+</section>
+
+<!-- Contact -->
+<section id="contact">
+<h2>Contact Us</h2>
+<p><strong>Address:</strong> KGF Civil Hospital, Kolar Gold Fields, Karnataka</p>
+<p><strong>Phone:</strong> 08153-XXXXXX</p>
+<p><strong>Email:</strong> kgfcivilhospital@gov.in</p>
+</section>
+
+<footer>
+<p>© 2026 KGF Civil Hospital | Government of Karnataka</p>
+</footer>
+
+<!-- Strong Token Script -->
+<script>
+let tokenCount = localStorage.getItem("tokenCount") || 0;
+
+function generateToken() {
+    tokenCount++;
+    localStorage.setItem("tokenCount", tokenCount);
+
+    const name = document.getElementById("patientName").value;
+    const doctor = document.getElementById("doctor").value;
+    const date = document.getElementById("appointmentDate").value;
+
+    const today = new Date();
+    const token =
+        "KGF-" +
+        today.getFullYear() +
+        (today.getMonth() + 1) +
+        today.getDate() +
+        "-" +
+        String(tokenCount).padStart(4, "0");
+
+    document.getElementById("tokenDisplay").innerHTML =
+        "✅ Appointment Confirmed<br><br>" +
+        "Patient: <strong>" + name + "</strong><br>" +
+        "Doctor: <strong>" + doctor + "</strong><br>" +
+        "Date: <strong>" + date + "</strong><br><br>" +
+        "🎟️ Token Number: <strong>" + token + "</strong>";
+}
+</script>
+
+</body>
+</html>
